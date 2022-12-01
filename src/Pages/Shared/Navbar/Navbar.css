@@ -1,0 +1,15 @@
+#userinfo {
+  display: none;
+  position: absolute;
+  top: 50px;
+}
+#userPhoto {
+  position: relative;
+}
+#userPhoto:hover + #userinfo {
+  display: block;
+}
+
+.header_font{
+  font-family: 'Lobster', cursive;
+}
