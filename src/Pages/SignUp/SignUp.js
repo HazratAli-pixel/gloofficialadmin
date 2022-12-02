@@ -13,8 +13,6 @@ const SignUp = () => {
     const [signUpError, setSignUPError] = useState('');
     const [loadingss, setLoading] = useState(false);
     const [token, setToken] = useState('');
-    
-    const [radiovalue, setradiovalue] = useState('Buyer')
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -32,7 +30,6 @@ const SignUp = () => {
         const imghoskey = process.env.REACT_APP_IMGBB_KEY
         const image = datas.photo[0]
         formData.append('image',image)
-        console.log(radiovalue)
 
         const url =`https://api.imgbb.com/1/upload?key=${imghoskey}`
         fetch(url,{
@@ -53,8 +50,7 @@ const SignUp = () => {
                         const name = datas.name
                         const email = datas.email
                         const address = datas.address
-                        const userType = radiovalue
-                        saveUser(name, email, userType,address,photoUrl);
+                        saveUser(name, email, address, photoUrl);
                     })
                     .catch(err => console.log(err));
             })
@@ -68,7 +64,7 @@ const SignUp = () => {
     //for database information store
     const saveUser = (name, email, userType, address, photoUrl) =>{
         const user ={name, email,userType,address,photoUrl};
-        fetch('https://laptop-reseler-server-side-hazratali-pixel.vercel.app/user/', {
+        fetch('https://glo-official-server.vercel.app/admin/', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -77,25 +73,27 @@ const SignUp = () => {
         })
         .then(res => res.json())
         .then(data =>{
-            fetch(`https://laptop-reseler-server-side-hazratali-pixel.vercel.app/jwt/`,{
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({email})
+            // fetch(`https://laptop-reseler-server-side-hazratali-pixel.vercel.app/jwt/`,{
+            //     method: 'POST',
+            //     headers: {
+            //         'content-type': 'application/json'
+            //     },
+            //     body: JSON.stringify({email})
                 
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.accessToken) {
-                    localStorage.setItem('accessToken', data.accessToken);
-                    toast.success('User Created Successfully.')
-                    setradiovalue('Buyer')
-                    setLoading(false)
-                    setToken(data.accessToken)
-                    navigate(from, { replace: true });
-                }
-            });
+            // })
+            // .then(res => res.json())
+            // .then(data => {
+            //     if (data.accessToken) {
+            //         localStorage.setItem('accessToken', data.accessToken);
+            //         toast.success('User Created Successfully.')
+            //         setLoading(false)
+            //         setToken(data.accessToken)
+            //         navigate(from, { replace: true });
+            //     }
+            // });
+            toast.success('User Created Successfully.')
+            setLoading(false)
+            navigate(from, { replace: true });
         })
     }
 
@@ -153,20 +151,6 @@ const SignUp = () => {
                                         pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
                                     })} className="input input-bordered " />
                                     {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-                                </div>
-                                <div>
-                                    <div className="form-control">
-                                        <label className="label cursor-pointer" onClick={()=> setradiovalue('Saler')}>
-                                            <span className="label-text">Saler Account</span> 
-                                            <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked />
-                                        </label>
-                                    </div>
-                                    <div className="form-control">
-                                        <label className="label cursor-pointer" onClick={()=> setradiovalue('Buyer')}>
-                                            <span className="label-text">Buyer Account</span> 
-                                            <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked />
-                                        </label>
-                                    </div>
                                 </div>
                                 <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
                                 {signUpError && <p className='text-red-600'>{signUpError}</p>}

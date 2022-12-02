@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
-import useAdmin from '../hooks/useAdmin';
-import Footer from '../Pages/Shared/Footer/Footer';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
-    const { user } = useContext(AuthContext);
-    const [isAdmin] = useAdmin(user?.email)
+    const {user} = useContext(AuthContext)
     return (
         <div >
             <Navbar></Navbar>
@@ -16,49 +13,26 @@ const DashboardLayout = () => {
                 <div className="drawer-content bg-green-100">
                     <Outlet></Outlet>
                 </div>
-                <div className="drawer-side bg-red-300">
+                {
+                    user && <div className="drawer-side bg-red-200 ">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 text-base-content">
-                        <li><Link className='font-bold' to="/dashboard">My Profile</Link></li>
-                        {
-                            isAdmin === "Admin" && <>
-                                <li><Link className='font-bold' to="/dashboard/allbuyer">All Buser</Link></li>
-                                <li><Link className='font-bold' to="/dashboard/allsalers">All Salers</Link></li>
-                                <li><Link className='font-bold' to="/dashboard/reportedproucts">Reported Products</Link></li>
-                            </>
-                            
-                        }
-                        {
-                            isAdmin === "Saler" && <>
-                                <li><Link className='font-bold' to="/dashboard/myproducts">My Products</Link></li>
-                                <li><Link className='font-bold' to="/dashboard/addproduct">Add Product</Link></li>
-                                {/* <li><Link className='font-bold' to="/dashboard/managedoctors">My Buyers</Link></li> */}
-                            </>
-                            
-                        }
-                        {
-                            isAdmin === "Buyer" && <>
-                                <li><Link className='font-bold' to="/dashboard/myorders">My Orders</Link></li>
-                                <li><Link className='font-bold' to="/dashboard/wishlist">My Wishlist</Link></li>
-                            </>
-                            
-                        }
-                      
-
+                        <li><NavLink className='font-bold' to="/">My Profile</NavLink></li>
+                        <li><NavLink className='font-bold' to="/alluser">User List</NavLink></li>
+                        <li><NavLink className='font-bold' to="/deposit">Deposit list</NavLink></li>
+                        <li><NavLink className='font-bold' to="/tickets">Ticket list</NavLink></li>
+                        <li><NavLink className='font-bold' to="/withdraw">Withdraw list</NavLink></li>
+                        <li><NavLink className='font-bold' to="/result">Result list</NavLink></li>
+                        <li><NavLink className='font-bold' to="/tips">Tips list</NavLink></li>
+                        <li><NavLink className='font-bold' to="/tutorial">Video list</NavLink></li>
+                        <li><NavLink className='font-bold' to="/reportedproucts">Add Video</NavLink></li>
+                        <li><NavLink className='font-bold' to="/reportedproucts">Popup manage</NavLink></li>
+                        <li><NavLink className='font-bold' to="/reportedproucts">Deposit msg Manage</NavLink></li>
+                        <li><NavLink className='font-bold' to="/reportedproucts">Count Down</NavLink></li>
                     </ul>
-
                 </div>
+                }
             </div>
-            {
-                isAdmin === "Buyer"  && <>
-                    <Footer></Footer>
-                </>
-            }
-            {
-                isAdmin === "Saler"  && <>
-                    <Footer></Footer>
-                </>
-            }
         </div>
     );
 };

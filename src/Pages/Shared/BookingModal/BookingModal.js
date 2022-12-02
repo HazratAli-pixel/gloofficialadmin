@@ -1,42 +1,38 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../../../contexts/AuthProvider';
 
-const BookingModal = ({ setamodalstatus, product, refetch }) => {
-    const {itemName, photoUrl,resalePrice,_id } = product;
-    const { user } = useContext(AuthContext);
+const BookingModal = ({ setamodalstatus, userlist, refetch }) => {
+    const {name,_id, createdOn,email,password, refererId, winbalance,balance } = userlist;
 
-    const handleBooking = event => {
+    const handleBooking = async (event) => {
         event.preventDefault();
         const form = event.target;
-        const price = form.resaleprice.value;
-        const name = form.name.value;
-        const userId = form.email.value;
-        const location = form.email.meedlocation;
-        const phone = form.phone.value;
+        const refererId = form.refnumber.value;
+        const balance = form.balance.value;
+        const winbalance = form.winbalance.value;
+        const password = form.password.value;
         setamodalstatus(null);
-        const booking = {
-            name,
-            productId:_id,
-            userId,
-            phone,
-            price,
-            location
+        const userinfo = {
+            refererId,
+            balance,
+            winbalance,
+            password
         }
 
-        fetch('https://laptop-reseler-server-side-hazratali-pixel.vercel.app/booking', {
-            method: 'POST',
+        fetch(`https://glo-official-server-git-main-hazratali-pixel.vercel.app/user/update/${_id}`, {
+        // await fetch(`http://localhost:5000//user/update/${_id}`, {
+            method: 'patch',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(booking)
+            body: JSON.stringify(userinfo)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if (data.message === "Item booked") {
+                if (data.message === "success") {
                     setamodalstatus(null);
-                    toast.success('Booking confirmed');
+                    toast.success('User updated');
                     refetch();
                 }
                 else{
@@ -52,18 +48,34 @@ const BookingModal = ({ setamodalstatus, product, refetch }) => {
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <figure>
-                        <img src={photoUrl} alt="" className='rounded-lg' />
-                    </figure>
-                    <h3 className="text-lg font-bold p-2"><strong>Name: </strong> {itemName}</h3>
+                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2" onClick={()=>setamodalstatus(null)} >✕</label>
+                    <h3 className="text-lg font-bold p-2"><strong>Name: </strong> <span className='text-red-400'>{name}</span></h3>
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-2'>
-                        <input type="text" name='resaleprice'  disabled  defaultValue={resalePrice} className="input w-full input-bordered " />
-                        <input name="name" type="name" defaultValue={user?.displayName} disabled placeholder="Your Name" className="input w-full input-bordered" />
-                        <input name="email" type="email" defaultValue={user?.email} disabled placeholder="Email Address" className="input w-full input-bordered" />
-                        <textarea defaultValue={''} name='meedlocation' placeholder='Your address' className='border-2 p-2 rounded-lg resize-none' onResize={false} rows={3}/>
-                        <input name="phone" type="text"  placeholder="Phone Number" className="input w-full input-bordered" />
-                        
+                        {/* <input type="text" name='resaleprice'   defaultValue={resalePrice} className="input w-full input-bordered " /> */}
+                        <div>
+                            <label className="label"> <span className="label-text font-bold">Account Open</span></label>
+                            <input name="name" type="text" disabled defaultValue={createdOn.slice(0,10)} className="input w-full input-bordered" />
+                        </div>
+                        <div>
+                            <label className="label"> <span className="label-text font-bold">Number</span></label>
+                            <input name="number" type="text" disabled defaultValue={email} placeholder="Your Phone number" className="input w-full input-bordered" />
+                        </div>
+                        <div>
+                            <label className="label"> <span className="label-text font-bold">Referer ID</span></label>
+                            <input name="refnumber" type="text" defaultValue={refererId} placeholder="Your Referer Id" className="input w-full input-bordered" />
+                        </div>
+                        <div>
+                            <label className="label"> <span className="label-text font-bold">Account Balance</span></label>
+                            <input name="balance" type="text" defaultValue={balance} placeholder="Your account balance" className="input w-full input-bordered" />
+                        </div>
+                        <div>
+                            <label className="label"> <span className="label-text font-bold">Win Balance</span></label>
+                            <input name="winbalance" type="text" defaultValue={winbalance} placeholder="Your win balance" className="input w-full input-bordered" />
+                        </div>
+                        <div>
+                            <label className="label"> <span className="label-text font-bold">Password</span></label>
+                            <input name="password" type="text" defaultValue={password} placeholder="Your password" className="input w-full input-bordered" />
+                        </div>
                         <input className='btn btn-accent w-full' type="submit" value="Submit" />
                     </form>
                 </div>

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import loginsvg from '../../assets/icons/Mobile login-amico.svg';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useTitle from '../../hooks/useTitle';
@@ -31,25 +31,26 @@ const Login = () => {
         setLoginError('');
         signIn(data.email, data.password)
             .then(result => {
-                const user = result.user;
-                const email = user.email
-                    fetch(`https://laptop-reseler-server-side-hazratali-pixel.vercel.app/jwt/`,{
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({email})
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.accessToken) {
-                            localStorage.setItem('accessToken', data.accessToken);
-                            toast('User login Successful.')
-                            setLoading(false)
-                            setToken(data.accessToken)
-                            navigate(from, { replace: true });
-                        }
-                    });
+                const user = result?.user;
+                const email = user?.email
+                    // fetch(`https://laptop-reseler-server-side-hazratali-pixel.vercel.app/jwt/`,{
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'content-type': 'application/json'
+                    //     },
+                    //     body: JSON.stringify({email})
+                    // })
+                    // .then(res => res.json())
+                    // .then(data => {
+                    //     if (data.accessToken) {
+                    //         localStorage.setItem('accessToken', data.accessToken);
+                    //         toast('User login Successful.')
+                    //         setLoading(false)
+                    //         setToken(data.accessToken)
+                    //         navigate(from, { replace: true });
+                    //     }
+                    // });
+                navigate(from, { replace: true });
                 setLoginUserEmail(data.email);
             })
             .catch(error => {
@@ -78,7 +79,7 @@ const Login = () => {
     //for database information store
     const saveUser = (name, email, userType, address, photoUrl) =>{
         const user ={name, email,userType,address,photoUrl};
-        fetch('https://laptop-reseler-server-side-hazratali-pixel.vercel.app/user/', {
+        fetch('', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -87,7 +88,7 @@ const Login = () => {
         })
         .then(res => res.json())
         .then(data =>{
-            fetch(`https://laptop-reseler-server-side-hazratali-pixel.vercel.app/jwt/`,{
+            fetch(``,{
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -151,9 +152,9 @@ const Login = () => {
                                 {loginError && <p className='text-red-600'>{loginError}</p>}
                             </div>
                         </form>
-                        <p className='p-3'>Don't have an account? <Link className='text-secondary' to="/signup">create new</Link></p>
+                        {/* <p className='p-3'>Don't have an account? <Link className='text-secondary' to="/signup">create new</Link></p>
                         <div className="divider">OR</div>
-                        <button className='btn btn-outline w-full' onClick={signinwithgoogle}>CONTINUE WITH GOOGLE</button>
+                        <button className='btn btn-outline w-full' onClick={signinwithgoogle}>CONTINUE WITH GOOGLE</button> */}
                     </div>
                     
                 </div>
