@@ -8,12 +8,11 @@ import useTitle from '../../hooks/useTitle';
 const Profile = () => {
     useTitle('Profile')
     const {user, emailverify} = useContext(AuthContext)
-    console.log(user);
     const emailvery = ()=>{
         emailverify()
         .then(result =>{
             toast("Verification Email send. Check your inbox / spam folder");
-            console.log(result)})
+            })
     }
     return (
         <div className='p-1'>
@@ -23,7 +22,7 @@ const Profile = () => {
                     <img className='rounded-full max-h-40 max-w-40' src={user?.photoURL} alt="" />
                 </div>
                 <div className='flex flex-col justify-center '>
-                    <h className='p-2 m-0 text-2xl text-center'> <strong>Name : </strong> {user?.displayName}</h>
+                    <h1 className='p-2 m-0 text-2xl text-center'> <strong>Name : </strong> {user?.displayName}</h1>
                     <p className='p-2 m-0 text-center'> <strong>Email :</strong> {user?.email}</p>
                     {/* <p className='p-3 m-0 text-center'> <strong>Verificaiton : </strong> {user?.emailVerified? "Verified User":<button className='btn btn-outline' onClick={emailvery}>Verify your email</button>}</p> */}
                     <div className='flex justify-center'>

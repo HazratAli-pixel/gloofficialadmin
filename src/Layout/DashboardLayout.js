@@ -25,7 +25,6 @@ const DashboardLayout = () => {
                         <li><NavLink className='font-bold' to="/result">Result list</NavLink></li>
                         <li><NavLink className='font-bold' to="/tips">Tips list</NavLink></li>
                         <li><NavLink className='font-bold' to="/tutorial">Video list</NavLink></li>
-                        <li><NavLink className='font-bold' to="/reportedproucts">Add Video</NavLink></li>
                         <li><NavLink className='font-bold' to="/reportedproucts">Popup manage</NavLink></li>
                         <li><NavLink className='font-bold' to="/reportedproucts">Deposit msg Manage</NavLink></li>
                         <li><NavLink className='font-bold' to="/reportedproucts">Count Down</NavLink></li>

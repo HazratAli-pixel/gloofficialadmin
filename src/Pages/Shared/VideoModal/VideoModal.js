@@ -21,7 +21,6 @@ const BookingModal = ({ setamodalstatus, userlist, refetch }) => {
         }
 
         fetch(`https://glo-official-server-git-main-hazratali-pixel.vercel.app/user/update/`, {
-        // fetch(`http://localhost:5000/user/update/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

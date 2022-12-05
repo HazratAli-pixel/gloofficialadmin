@@ -16,15 +16,13 @@ const AllSaler = () => {
   });
 
   const handleDelete = id => {
-      fetch(`https://glo-official-server.vercel.app/diposit/${id}`, {
+      fetch(`https://glo-official-server.vercel.app/game/${id}`, {
           method: 'DELETE',
       })
       .then(res => res.json())
       .then(data => {
-          if(data.message){
-            toast.success('Delete suffcessfull.')
-            refetch();
-          }
+        refetch();
+        toast.success('Delete successfull.')
       })
   }
   if(isLoading){

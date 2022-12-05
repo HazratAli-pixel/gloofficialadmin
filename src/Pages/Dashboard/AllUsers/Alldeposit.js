@@ -21,10 +21,8 @@ const AllSaler = () => {
       })
       .then(res => res.json())
       .then(data => {
-          if(data.message){
-            toast.success('Delete suffcessfull.')
-            refetch();
-          }
+          toast.success('Delete successfull.')
+          refetch();
       })
   }
 

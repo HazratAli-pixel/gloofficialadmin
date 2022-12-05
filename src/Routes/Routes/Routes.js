@@ -9,9 +9,6 @@ import AllUser from "../../Pages/Dashboard/AllUsers/AllUser";
 import Withdraw from "../../Pages/Dashboard/AllUsers/Allwithdraw";
 
 
-import MyOrders from "../../Pages/Dashboard/BuyerPages/MyOrders";
-import MyWishlist from "../../Pages/Dashboard/BuyerPages/MyWishlist";
-import MyProducts from "../../Pages/Dashboard/SalerPage/MyProducts";
 import Login from "../../Pages/Login/Login";
 import Profile from "../../Pages/Profile/Profile";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
@@ -55,18 +52,6 @@ const router = createBrowserRouter([
             {
                 path: '/tutorial',
                 element: <PrivateRoute><Tutorial></Tutorial></PrivateRoute>
-            },
-            {
-                path: '/myproducts',
-                element: <MyProducts></MyProducts>
-            },
-            {
-                path: '/myorders',
-                element: <MyOrders></MyOrders>
-            },
-            {
-                path: '/wishlist',
-                element: <MyWishlist></MyWishlist>
             },
             {
                 path: '/login',
