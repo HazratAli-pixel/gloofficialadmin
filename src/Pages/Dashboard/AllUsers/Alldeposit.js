@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import BookingModal from '../../Shared/BookingModal/BookingModal';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSaler = () => {
@@ -72,15 +71,7 @@ const AllSaler = () => {
               </tbody>
             </table>
           </div>
-            {
-                modalstatus &&
-                    <BookingModal
-                    setamodalstatus={setamodalstatus}
-                    refetch={refetch}
-                    userlist={modalstatus}
-                    ></BookingModal>
-            
-            }
+           
     </div>
     );
 };

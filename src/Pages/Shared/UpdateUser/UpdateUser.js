@@ -1,7 +1,7 @@
 import React from 'react';
 import toast from 'react-hot-toast';
 
-const BookingModal = ({ setamodalstatus, userlist, refetch }) => {
+const UpdateUser = ({ setamodalstatus, userlist, refetch }) => {
     const {name,_id, createdOn,email,password, refererId, winbalance,balance } = userlist;
 
     const handleBooking = async (event) => {
@@ -20,8 +20,7 @@ const BookingModal = ({ setamodalstatus, userlist, refetch }) => {
             password
         }
 
-        fetch(`https://glo-official-server-git-main-hazratali-pixel.vercel.app/user/update/`, {
-        // fetch(`http://localhost:5000/user/update/${_id}`, {
+        fetch(`https://glo-official-server-git-main-hazratali-pixel.vercel.app/user/update/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -85,4 +84,4 @@ const BookingModal = ({ setamodalstatus, userlist, refetch }) => {
     );
 };
 
-export default BookingModal;
+export default UpdateUser;
