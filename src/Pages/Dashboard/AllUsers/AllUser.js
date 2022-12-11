@@ -50,6 +50,8 @@ const AllSaler = () => {
                     <th>Ref ID</th>
                     <th>Balance</th>
                     <th>Win Blnce</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Modify</th>
                     <th>Delete</th>
                   </tr>
@@ -61,8 +63,10 @@ const AllSaler = () => {
                         <td>{person?.name}</td>
                         <td>{person?.email}</td>
                         <td>{person?.refererId}</td>
-                        <td>{person?.balance}</td>
+                        <td>{Number.parseFloat(person?.balance).toFixed(2)}</td>
                         <td>{person?.winbalance}</td>
+                        <td>{person?.createdOn.slice(0,10)}</td>
+                        <td>{person?.createdOn.slice(12,19)}</td>
                         <td><label htmlFor="booking-modal"  className='btn btn-xs btn-success' onClick={() => setamodalstatus(person)}>Update</label></td>
                         <td><button className='btn btn-xs btn-error' onClick={() => handleDelete(person._id)}>Delete</button></td>
                       </tr>)

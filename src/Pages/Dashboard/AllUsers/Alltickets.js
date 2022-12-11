@@ -40,6 +40,8 @@ const AllSaler = () => {
                     <th>SL</th>
                     <th>ID</th>
                     <th>Type</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Number</th>
                     <th>Straight</th>
                     <th>Rumble</th>
@@ -54,11 +56,13 @@ const AllSaler = () => {
                         <th>{i+1}</th>
                         <td>{game?.userId}</td>
                         <td>{game?.category}</td>
+                        <td>{game?.createdOn.slice(0,10)}</td>
+                        <td>{game?.createdOn.slice(12,19)}</td>
                         <td>{game?.number}</td>
                         <td>{game?.straight}</td>
                         <td>{game?.Rumble}</td>
                         <td>{game?.totalAmount}</td>
-                        <td>{game?.discount}</td>
+                        <td>{Number.parseFloat(game?.discount).toFixed(2)}</td>
                         <td><button className='btn btn-xs btn-error' onClick={() => handleDelete(game._id)}>Delete</button></td>
                       </tr>)
                   }
